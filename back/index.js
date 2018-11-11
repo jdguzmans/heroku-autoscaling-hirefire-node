@@ -67,7 +67,33 @@ router.get(`/hirefire/${process.env.HIREFIRE_TOKEN}/info`, async (req, res, next
 })
 
 const countWorkers = async () => {
-  return 2
+  const numerOfMessages = await getApproximateNumberOfMessages()
+
+  let numerOfWorkers
+  if (numerOfMessages < 4) numerOfWorkers = 1
+  else if (numerOfMessages < 8) numerOfWorkers = 2
+  else if (numerOfMessages < 12) numerOfWorkers = 3
+  else numerOfWorkers = 4
+
+  return numerOfWorkers
+}
+
+const getApproximateNumberOfMessages = () => {
+  return new Promise((resolve, reject) => {
+    const params = {
+      QueueUrl: process.env.AWS_QUEUE_URL,
+      AttributeNames: [
+        'ApproximateNumberOfMessages'
+      ]
+    }
+    sqs.getQueueAttributes(params, (err, data) => {
+      if (err) console.log(err, err.stack)
+      else {
+        const { Attributes: { ApproximateNumberOfMessages: numerOfMessages } } = data
+        resolve(numerOfMessages)
+      }
+    })
+  })
 }
 
 app.use('/', router)
