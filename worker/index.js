@@ -44,10 +44,10 @@ const deleteMessage = (receipHandle) => {
 
 cron.schedule('*/20 * * * * *', async () => {
   console.log('cron started')
-  const messages = await receiveMessages()
-  for (let message of messages) {
-    const { MessageAttributes: { attr1: { StringValue: attr1 } }, ReceiptHandle: receiptHandle } = message
-    console.log(attr1)
-    await deleteMessage(receiptHandle)
-  }
+  // const messages = await receiveMessages()
+  // for (let message of messages) {
+  //   const { MessageAttributes: { attr1: { StringValue: attr1 } }, ReceiptHandle: receiptHandle } = message
+  //   console.log(attr1)
+  //   await deleteMessage(receiptHandle)
+  // }
 })

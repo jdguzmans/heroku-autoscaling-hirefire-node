@@ -47,7 +47,7 @@ router.get('/', async (req, res, next) => {
     await queueMessage()
   }
   const params = {
-    QueueUrl: 'STRING_VALUE', /* required */
+    QueueUrl: process.env.AWS_QUEUE_URL,
     AttributeNames: [
       'ApproximateNumberOfMessages'
     ]
@@ -62,11 +62,11 @@ router.get('/', async (req, res, next) => {
 
 router.get(`/hirefire/${process.env.HIREFIRE_TOKEN}/info`, async (req, res, next) => {
   res.send([{
-    'name': 'worker', 'quantity': countWorkers()
+    'name': 'worker', 'quantity': await countWorkers()
   }])
 })
 
-const countWorkers = () => {
+const countWorkers = async () => {
   return 2
 }
 
