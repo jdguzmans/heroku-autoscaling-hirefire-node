@@ -1,0 +1,20 @@
+{
+  "name": "heroku-worker-autoscaling-node-sqs",
+  "version": "1.0.0",
+  "description": "Autoscaling workers in Heroku with SQS in NodeJS projects.",
+  "main": "index.js",
+  "scripts": {
+    "web": "cd back && npm install && npm start",
+    "worker": "cd worker && npm install && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdguzmans/heroku-worker-autoscaling-node-sqs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdguzmans/heroku-worker-autoscaling-node-sqs/issues"
+  },
+  "homepage": "https://github.com/jdguzmans/heroku-worker-autoscaling-node-sqs#readme"
+}
