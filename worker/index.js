@@ -6,10 +6,9 @@ AWS.config.update({ region: 'us-east-1' })
 const sqs = new AWS.SQS({ apiVersion: '2012-11-05' })
 
 const receiveMessages = () => {
-  console.log(process.env.AWS_QUEUE_URL)
   return new Promise((resolve, reject) => {
     const params = {
-      MaxNumberOfMessages: 2,
+      MaxNumberOfMessages: 1,
       MessageAttributeNames: [
         'All'
       ],
@@ -42,8 +41,7 @@ const deleteMessage = (receipHandle) => {
   })
 }
 
-cron.schedule('*/20 * * * * *', async () => {
-  console.log('cron started')
+cron.schedule('*/30 * * * * *', async () => {
   const messages = await receiveMessages()
   for (let message of messages) {
     const { MessageAttributes: { attr1: { StringValue: attr1 } }, ReceiptHandle: receiptHandle } = message

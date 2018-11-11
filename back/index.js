@@ -16,6 +16,9 @@ app.use(cors())
 
 const server = http.createServer(app)
 server.listen(process.env.PORT)
+server.on('listening', () => {
+  console.log(`web server is running`)
+})
 
 const queueMessage = () => {
   return new Promise((resolve, reject) => {
