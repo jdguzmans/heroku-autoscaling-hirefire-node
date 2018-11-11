@@ -50,7 +50,7 @@ router.get('/', async (req, res, next) => {
   res.sendStatus(200)
 })
 
-router.get(`hirefire/${process.env.HIREFIRE_TOKEN}/info`, async (req, res, next) => {
+router.get(`/hirefire/${process.env.HIREFIRE_TOKEN}/info`, async (req, res, next) => {
   res.send([{
     'name': 'worker', 'quantity': countWorkers()
   }])
