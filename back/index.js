@@ -44,10 +44,20 @@ const router = express.Router()
 
 router.get('/', async (req, res, next) => {
   for (let i = 0; i < 1; i++) {
-    console.log(process.env.AWS_QUEUE_URL)
     await queueMessage()
   }
-  res.sendStatus(200)
+  const params = {
+    QueueUrl: 'STRING_VALUE', /* required */
+    AttributeNames: [
+      'ApproximateNumberOfMessages'
+    ]
+  }
+  sqs.getQueueAttributes(params, (err, data) => {
+    if (err) console.log(err, err.stack)
+    else {
+      res.send(data)
+    }
+  })
 })
 
 router.get(`/hirefire/${process.env.HIREFIRE_TOKEN}/info`, async (req, res, next) => {
